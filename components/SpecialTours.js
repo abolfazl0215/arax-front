@@ -128,7 +128,7 @@ export default function SpecialTours() {
           }}
           className="special-tours-swiper"
           style={{ paddingBottom: "10px" }}>
-          {specialTours.map((tour, index) => (
+          {specialTours && specialTours.length > 0 &&specialTours.map((tour, index) => (
             <SwiperSlide
               key={`${tour._id}-${index}`}
               style={{ height: "auto" }}>

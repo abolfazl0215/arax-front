@@ -78,7 +78,7 @@ export default function ProfilePage() {
 
           {/* Bookings */}
           <div className="space-y-8">
-            {bookingTypes.map((type) => {
+            {bookingTypes && bookingTypes.length > 0 && bookingTypes.map((type) => {
               const items = bookings[type.key] || [];
               if (items.length === 0) return null;
 
@@ -91,7 +91,7 @@ export default function ProfilePage() {
                     {type.label}
                   </h2>
                   <div className="space-y-4">
-                    {items.map((item) => (
+                    {items && items.length > 0 && items.map((item) => (
                       <div
                         key={item.id}
                         className="border-2 border-gray-200 rounded-lg p-4 hover:border-teal-500 transition-colors">

@@ -87,7 +87,7 @@ export default function BlogsSection() {
           }}
           className="blogs-swiper"
           style={{ paddingBottom: "10px" }}>
-          {blogs.map((blog) => (
+          {blogs && blogs.length > 0 &&  blogs.map((blog) => (
             <SwiperSlide key={blog._id} style={{ height: "auto" }}>
               <Link href={`/blogs/${blog._id}`}>
                 <div className="bg-slate-100 flex flex-col justify-between rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow h-full cursor-pointer">

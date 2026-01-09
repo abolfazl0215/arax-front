@@ -67,28 +67,30 @@ export default function PopularVisas() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4  gap-1.5">
-          {displayVisas.map((visa) => (
-            <Link
-              key={visa._id}
-              href={`/visas/${visa._id}`}
-              className="bg-white flex flex-col pb-3 justify-between mt-3 rounded-xl border-2 boredr-[#E6E6E6] overflow-hidden hover:shadow-lg transition-shadow h-full cursor-pointer">
-              <div className="relative h-28">
-                <img
-                  src={visa.image}
-                  alt={visa.title}
-                  className="w-full h-full object-cover rounded-t-lg"
-                />
-              </div>
-              <div className="px-3">
-                <h3 className="font-semibold text-lg text-gray-900">
-                  {visa.title}
-                </h3>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <span>{visa.processingTime}</span>
+          {displayVisas &&
+            displayVisas.length > 0 &&
+            displayVisas.map((visa) => (
+              <Link
+                key={visa._id}
+                href={`/visas/${visa._id}`}
+                className="bg-white flex flex-col pb-3 justify-between mt-3 rounded-xl border-2 boredr-[#E6E6E6] overflow-hidden hover:shadow-lg transition-shadow h-full cursor-pointer">
+                <div className="relative h-28">
+                  <img
+                    src={visa.image}
+                    alt={visa.title}
+                    className="w-full h-full object-cover rounded-t-lg"
+                  />
                 </div>
-              </div>
-            </Link>
-          ))}
+                <div className="px-3">
+                  <h3 className="font-semibold text-lg text-gray-900">
+                    {visa.title}
+                  </h3>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <span>{visa.processingTime}</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
 
           {/* کارت See All */}
           <Link

@@ -69,7 +69,7 @@ export default function ToursPage() {
 
           {/* Tours Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-            {filteredTours.map((tour) => (
+            {filteredTours && filteredTours.length > 0 && filteredTours.map((tour) => (
               <div
                 key={tour._id}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">

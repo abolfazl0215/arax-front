@@ -77,7 +77,7 @@ export default function VisasPage() {
 
           {/* Visas Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-            {filteredVisas.map((visa) => (
+            {filteredVisas && filteredVisas.length > 0 && filteredVisas.map((visa) => (
               <div
                 key={visa._id}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">

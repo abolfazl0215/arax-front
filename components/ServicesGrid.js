@@ -142,7 +142,7 @@ export default function ServicesGrid() {
     <section className="pt-4 px-3 md:px-[16vw] ">
       <div className="container mx-auto">
         <div className="grid grid-cols-3  md:grid-cols-5 gap-1 mx-auto">
-          {services.map((service) => (
+          {services && services.length > 0 &&services.map((service) => (
             <Link
               key={service.name}
               href={service.href}
