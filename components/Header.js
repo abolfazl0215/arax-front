@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import useBookingStore from "@/store/bookingStore";
+import axios from "axios";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,8 +12,22 @@ export default function Header() {
   const menuRef = useRef(null);
   const router = useRouter();
 
-  // Mock user for demo
-  const user = { name: "John Doe" };
+  const { user, logout, setBlogs, setReviews, setTours, setVisas } =
+    useBookingStore();
+
+  const getData = async () => {
+    const response = await axios.get(
+      "https://arax-back.onrender.com/api/getAllData",
+    );
+    setBlogs(response.data.blogs);
+    setReviews(response.data.reviews);
+    setTours(response.data.tours);
+    setVisas(response.data.visas);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
