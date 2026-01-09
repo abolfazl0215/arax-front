@@ -168,7 +168,7 @@ export default function Header() {
         {/* Side Menu */}
         <div
           ref={menuRef}
-          className={`fixed left-0 top-0 h-full w-80 bg-white/95 backdrop-blur-xl shadow-2xl z-[110] transform transition-transform duration-300 ease-in-out ${
+          className={`fixed left-0 top-0 h-full w-70 bg-white/95 backdrop-blur-xl shadow-2xl z-[110] transform transition-transform duration-300 ease-in-out ${
             isMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`}>
           <div className="flex flex-col h-full">
@@ -182,7 +182,7 @@ export default function Header() {
                 className="p-2 rounded-md hover:bg-gray-100/50 transition-colors cursor-pointer"
                 aria-label="Close menu">
                 <svg
-                  className="w-6 h-6"
+                  className="w-6 h-6 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24">
