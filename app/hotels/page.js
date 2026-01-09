@@ -1,0 +1,197 @@
+/**
+ * Hotels Page
+ * Hotel booking form
+ */
+
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import useBookingStore from "@/store/bookingStore";
+import { toast } from "sonner";
+import { ClipLoader } from "react-spinners";
+
+export default function HotelsPage() {
+  const router = useRouter();
+  const { addBooking, user } = useBookingStore();
+
+  const [formData, setFormData] = useState({
+    destination: "",
+    checkIn: "",
+    checkOut: "",
+    guests: 1,
+    rooms: 1,
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    try {
+      addBooking("hotels", {
+        ...formData,
+        price: 150 * Number(formData.rooms),
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 800));
+
+      toast.success("Hotel booked successfully! Check your profile.");
+
+      setFormData({
+        destination: "",
+        checkIn: "",
+        checkOut: "",
+        guests: 1,
+        rooms: 1,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const inputClass =
+    "w-full px-4 py-2 border-2 border-gray-300 rounded-md text-gray-900 placeholder:text-gray-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500";
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header />
+
+      <main className="flex-grow py-12 px-4 bg-gray-50">
+        <div className="container mx-auto max-w-4xl">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+            Book a Hotel
+          </h1>
+
+          <div className="bg-white rounded-lg shadow-md p-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Destination */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-2">
+                  Destination
+                </label>
+                <input
+                  type="text"
+                  value={formData.destination}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      destination: e.target.value,
+                    })
+                  }
+                  required
+                  placeholder="City or Hotel name"
+                  className={inputClass}
+                />
+              </div>
+
+              {/* Dates & Numbers */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-800 mb-2">
+                    Check-in Date
+                  </label>
+                  <input
+                    type="date"
+                    value={formData.checkIn}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        checkIn: e.target.value,
+                      })
+                    }
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-800 mb-2">
+                    Check-out Date
+                  </label>
+                  <input
+                    type="date"
+                    value={formData.checkOut}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        checkOut: e.target.value,
+                      })
+                    }
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-800 mb-2">
+                    Guests
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={formData.guests}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        guests: Number(e.target.value),
+                      })
+                    }
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-800 mb-2">
+                    Rooms
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={formData.rooms}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        rooms: Number(e.target.value),
+                      })
+                    }
+                    required
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full py-3 bg-teal-600 text-white rounded-md font-semibold transition-colors flex items-center justify-center gap-2 ${
+                  isSubmitting ? "opacity-80 cursor-not-allowed" : "hover:bg-teal-700"
+                }`}>
+                {isSubmitting ? (
+                  <>
+                    <ClipLoader color="#ffffff" size={18} />
+                    <span>Booking...</span>
+                  </>
+                ) : (
+                  "Book Hotel"
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
